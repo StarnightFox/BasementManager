@@ -29,5 +29,7 @@ declare module '@skyra/env-utilities' {
 	interface Env {
 		OWNERS: ArrayString;
 		DISCORD_TOKEN: string;
+		GUILD_ID: string;
+		VERIFY_CHANNEL_ID: string;
 	}
 }
