@@ -32,5 +32,7 @@ declare module '@skyra/env-utilities' {
 		GUILD_ID: string;
 		VERIFY_CHANNEL_ID: string;
 		VERIFY_MESSAGE_CHANNEL_ID: string;
+		VERIFIED_ROLE_ID: string;
+		WELCOME_CHANNEL_ID: string;
 	}
 }

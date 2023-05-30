@@ -52,7 +52,9 @@ export default class BasementClient extends SapphireClient {
 
 container.config = {
 	colours: {
-		default: '#fe9fc6'
+		default: '#fe9fc6',
+		accepted: '#00ff00',
+		denied: '#ff0000'
 	}
 };
 
@@ -61,6 +63,8 @@ declare module '@sapphire/pieces' {
 		config: {
 			colours: {
 				default: ColorResolvable;
+				accepted: ColorResolvable;
+				denied: ColorResolvable;
 			};
 		};
 	}
