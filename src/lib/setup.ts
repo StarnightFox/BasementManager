@@ -31,5 +31,6 @@ declare module '@skyra/env-utilities' {
 		DISCORD_TOKEN: string;
 		GUILD_ID: string;
 		VERIFY_CHANNEL_ID: string;
+		VERIFY_MESSAGE_CHANNEL_ID: string;
 	}
 }
