@@ -21,7 +21,8 @@ export class VerifyButtonHandler extends InteractionHandler {
 		if (!interaction.inCachedGuild()) return interaction.reply('This command can only be used in a guild.');
 
 		const member = interaction.member as GuildMember;
-		if (member && member.roles.cache.has(envParseString('VERIFIED_ROLE_ID'))) return interaction.reply('You are already verified.');
+		if (member && member.roles.cache.has(envParseString('VERIFIED_ROLE_ID')))
+			return interaction.reply({ content: 'You are already verified.', ephemeral: true });
 
 		return interaction.showModal(this.makeFirstModal());
 	}
