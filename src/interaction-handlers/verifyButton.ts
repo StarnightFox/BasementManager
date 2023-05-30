@@ -1,7 +1,6 @@
 import { InteractionHandler, InteractionHandlerTypes, type PieceContext } from '@sapphire/framework';
 import type { ButtonInteraction } from 'discord.js';
-import { ActionRowBuilder, ButtonBuilder, ButtonStyle, ModalBuilder, TextInputBuilder, TextInputStyle } from 'discord.js';
-import { Time } from '@sapphire/time-utilities';
+import { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from 'discord.js';
 
 export class VerifyButtonHandler extends InteractionHandler {
 	public constructor(context: PieceContext, options: InteractionHandler.Options) {
@@ -18,44 +17,7 @@ export class VerifyButtonHandler extends InteractionHandler {
 	}
 
 	public async run(interaction: ButtonInteraction) {
-		const reply = await interaction.reply({
-			components: [this.makeButtonRow()],
-			ephemeral: true
-		});
-
-		const collector = reply.createMessageComponentCollector({
-			filter: (i) => i.user.id === interaction.user.id,
-			time: Time.Minute * 30
-		});
-
-		collector.on('collect', async (i) => {
-			switch (i.customId) {
-				case 'modalButton.1': {
-					await i.showModal(this.makeFirstModal());
-
-					break;
-				}
-			}
-
-			collector.stop();
-		});
-
-		collector.on('end', async (_, reason) => {
-			if (reason === 'time') {
-				await reply.edit({
-					components: [],
-					content: 'You took too long to answer the questions so your verification has been cancelled.\nplease try again.'
-				});
-			}
-
-			return reply.delete();
-		});
-	}
-
-	private makeButtonRow() {
-		const firstButton = new ButtonBuilder().setCustomId('modalButton.1').setLabel('1').setStyle(ButtonStyle.Success);
-
-		return new ActionRowBuilder<ButtonBuilder>().addComponents(firstButton);
+		return interaction.showModal(this.makeFirstModal());
 	}
 
 	private makeFirstModal() {
