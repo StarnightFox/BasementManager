@@ -17,6 +17,8 @@ export class VerifyButtonHandler extends InteractionHandler {
 	}
 
 	public async run(interaction: ButtonInteraction) {
+		if (!interaction.inCachedGuild()) return interaction.reply('This command can only be used in a guild.');
+
 		return interaction.showModal(this.makeFirstModal());
 	}
 
