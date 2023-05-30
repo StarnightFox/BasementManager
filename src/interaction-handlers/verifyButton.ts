@@ -1,6 +1,7 @@
 import { InteractionHandler, InteractionHandlerTypes, type PieceContext } from '@sapphire/framework';
 import type { ButtonInteraction } from 'discord.js';
-import { ActionRowBuilder, ModalBuilder, TextInputBuilder, TextInputStyle } from 'discord.js';
+import { ActionRowBuilder, GuildMember, ModalBuilder, TextInputBuilder, TextInputStyle } from 'discord.js';
+import { envParseString } from '@skyra/env-utilities';
 
 export class VerifyButtonHandler extends InteractionHandler {
 	public constructor(context: PieceContext, options: InteractionHandler.Options) {
@@ -18,6 +19,9 @@ export class VerifyButtonHandler extends InteractionHandler {
 
 	public async run(interaction: ButtonInteraction) {
 		if (!interaction.inCachedGuild()) return interaction.reply('This command can only be used in a guild.');
+
+		const member = interaction.member as GuildMember;
+		if (member && member.roles.cache.has(envParseString('VERIFIED_ROLE_ID'))) return interaction.reply('You are already verified.');
 
 		return interaction.showModal(this.makeFirstModal());
 	}
